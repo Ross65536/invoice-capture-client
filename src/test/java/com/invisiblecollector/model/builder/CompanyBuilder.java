@@ -39,6 +39,8 @@ public class CompanyBuilder extends BuilderBase {
     comp.setId(gid);
     comp.setVatNumber(vatNumber);
     comp.setZipCode(zipCode);
+    comp.setCountry(country);
+    comp.setNotificationsEnabled(notificationsEnabled);
     return comp;
   }
   

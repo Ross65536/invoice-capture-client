@@ -94,13 +94,21 @@ public class Company implements IModel, IRoutable {
   public void setCity(String city) {
     this.city = city;
   }
-  
+
+  public void setCountry(String country) {
+    this.country = country;
+  }
+
   public void setId(String id) {
     this.gid = id;
   }
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public void setNotificationsEnabled(Boolean notificationsEnabled) {
+    this.notificationsEnabled = notificationsEnabled;
   }
 
   public void setVatNumber(String vatNumber) {
@@ -121,7 +129,7 @@ public class Company implements IModel, IRoutable {
     ModelUtils.tryAddObject(map, CompanyField.ZIP_CODE, getZipCode());
     ModelUtils.tryAddObject(map, CompanyField.CITY, getCity());
     ModelUtils.tryAddObject(map, CompanyField.COUNTRY, getCountry());
-    
+
     return map;
   }
 }

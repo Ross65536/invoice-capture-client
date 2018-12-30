@@ -97,6 +97,8 @@ public class ApiRequestFacade {
 
     responseValidator.validate(response);
 
+//    String str = response.readEntity(String.class);
+
     return response.readEntity(InputStream.class);
   }
 

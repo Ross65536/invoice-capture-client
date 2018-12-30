@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.invisiblecollector.connection.builders.IThrowingBuilder;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Assertions;
@@ -61,7 +62,7 @@ public class CustomerApiFacadeIT extends IcFacadeTestBase {
     CustomerApiFacade icFacade = buildCustomerResponseAndAddMockReponse(customerBuilder);
 
     this.assertCorrectModelReturned(
-        customerBuilder, (Customer customer) -> icFacade.registerNewCustomer(customer));
+        customerBuilder, (IThrowingBuilder<Customer, Customer>) icFacade::registerNewCustomer);
     RecordedRequest request = this.mockServer.getRequest();
     this.assertSentCorrectHeaders(
         request, CUSTOMERS_ENDPOINT, this.mockServer.getBaseUri(), RequestType.POST);

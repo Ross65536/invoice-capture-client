@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Debt implements IModel, IRoutable {
-  
+
   private Map<String, String> attributes;
   private String currency;
   private String customerId;
@@ -29,7 +29,7 @@ public class Debt implements IModel, IRoutable {
     if (attributes == null) {
       attributes = new HashMap<>();
     }
-    
+
     attributes.put(key, value);
   }
 
@@ -37,7 +37,7 @@ public class Debt implements IModel, IRoutable {
     if (items == null) {
       items = new ArrayList<>();
     }
-    
+
     if (item == null) {
       throw new IllegalArgumentException("item cannot be null");
     }
@@ -56,11 +56,14 @@ public class Debt implements IModel, IRoutable {
       return Objects.equals(this.attributes, other.attributes)
           && Objects.equals(this.currency, other.currency)
           && Objects.equals(this.customerId, other.customerId)
-          && Objects.equals(this.date, other.date) && Objects.equals(this.dueDate, other.dueDate)
-          && Objects.equals(this.grossTotal, other.grossTotal) && Objects.equals(this.id, other.id)
+          && Objects.equals(this.date, other.date)
+          && Objects.equals(this.dueDate, other.dueDate)
+          && Objects.equals(this.grossTotal, other.grossTotal)
+          && Objects.equals(this.id, other.id)
           && Objects.equals(this.items, other.items)
           && Objects.equals(this.netTotal, other.netTotal)
-          && Objects.equals(this.number, other.number) && Objects.equals(this.status, other.status)
+          && Objects.equals(this.number, other.number)
+          && Objects.equals(this.status, other.status)
           && Objects.equals(this.tax, other.tax);
     }
   }
@@ -69,9 +72,7 @@ public class Debt implements IModel, IRoutable {
     return attributes;
   }
 
-  /**
-   * See {@link DebtField#CURRENCY} for more details. 
-   */
+  /** See {@link DebtField#CURRENCY} for more details. */
   public String getCurrency() {
     return currency;
   }
@@ -80,16 +81,12 @@ public class Debt implements IModel, IRoutable {
     return customerId;
   }
 
-  /**
-   * See {@link DebtField#DATE} for more details. 
-   */
+  /** See {@link DebtField#DATE} for more details. */
   public Date getDate() {
     return new Date(date.getTime());
   }
 
-  /**
-   * See {@link DebtField#DUE_DATE} for more details. 
-   */
+  /** See {@link DebtField#DUE_DATE} for more details. */
   public Date getDueDate() {
     return new Date(dueDate.getTime());
   }
@@ -119,9 +116,7 @@ public class Debt implements IModel, IRoutable {
     return getId();
   }
 
-  /**
-   * See {@link DebtField#STATUS} for more details. 
-   */
+  /** See {@link DebtField#STATUS} for more details. */
   public String getStatus() {
     return status;
   }
@@ -130,35 +125,42 @@ public class Debt implements IModel, IRoutable {
     return tax;
   }
 
-  /**
-   * See {@link DebtField#TYPE} for more details. 
-   */
+  /** See {@link DebtField#TYPE} for more details. */
   public String getType() {
     return type;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(attributes, currency, customerId, date, dueDate, grossTotal, id, items,
-        netTotal, number, status, tax);
+    return Objects.hash(
+        attributes,
+        currency,
+        customerId,
+        date,
+        dueDate,
+        grossTotal,
+        id,
+        items,
+        netTotal,
+        number,
+        status,
+        tax);
   }
 
   public void setAttributes(Map<String, String> attributes) {
     this.attributes = attributes;
   }
 
-  /**
-   * See {@link DebtField#CURRENCY} for more details. 
-   */
+  /** See {@link DebtField#CURRENCY} for more details. */
   public void setCurrency(String currency) {
     this.currency = currency;
   }
-  
+
   /**
    * See {@link DebtField#CUSTOMER_ID} for more details.
-   * 
-   * @param customerInfo the object that has the id or external id of the customer.
-   *        Can be a {@link Customer} object.
+   *
+   * @param customerInfo the object that has the id or external id of the customer. Can be a {@link
+   *     Customer} object.
    * @see #setCustomerId(String)
    */
   public void setCustomerId(IRoutable customerInfo) {
@@ -167,23 +169,19 @@ public class Debt implements IModel, IRoutable {
 
   /**
    * See {@link DebtField#CUSTOMER_ID} for more details.
-   * 
+   *
    * @see #setCustomerId(IRoutable)
    */
   public void setCustomerId(String customerId) {
     this.customerId = customerId;
   }
 
-  /**
-   * See {@link DebtField#DATE} for more details. 
-   */
+  /** See {@link DebtField#DATE} for more details. */
   public void setDate(Date date) {
     this.date = new Date(date.getTime());
   }
 
-  /**
-   * See {@link DebtField#DUE_DATE} for more details. 
-   */
+  /** See {@link DebtField#DUE_DATE} for more details. */
   public void setDueDate(Date dueDate) {
     this.dueDate = new Date(dueDate.getTime());
   }
@@ -208,9 +206,7 @@ public class Debt implements IModel, IRoutable {
     this.number = number;
   }
 
-  /**
-   * See {@link DebtField#STATUS} for possible values. 
-   */
+  /** See {@link DebtField#STATUS} for possible values. */
   public void setStatus(String status) {
     this.status = status;
   }
@@ -219,9 +215,7 @@ public class Debt implements IModel, IRoutable {
     this.tax = tax;
   }
 
-  /**
-   * See {@link DebtField#TYPE} for possible values. 
-   */
+  /** See {@link DebtField#TYPE} for possible values. */
   public void setType(String type) {
     this.type = type;
   }

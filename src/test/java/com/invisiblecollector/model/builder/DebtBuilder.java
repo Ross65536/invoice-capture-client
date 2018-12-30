@@ -1,5 +1,8 @@
 package com.invisiblecollector.model.builder;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,7 +31,16 @@ public class DebtBuilder extends BuilderBase {
     Calendar calendarNow = Calendar.getInstance();
     calendarNow.add(Calendar.YEAR, yearOffset);
 
-    return calendarNow.getTime();
+
+    Date date = calendarNow.getTime();
+
+    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    try {
+      return formatter.parse(formatter.format(date));
+    } catch (ParseException e) {
+      throw new IllegalArgumentException(e);
+    }
+
   }
 
   public static DebtBuilder buildMinimalTestBuilder() {
