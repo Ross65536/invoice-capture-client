@@ -1,16 +1,12 @@
 package com.invisiblecollector.model.builder;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
-import com.google.gson.JsonObject;
 import com.invisiblecollector.StringTestUtils;
 import com.invisiblecollector.model.Debt;
 import com.invisiblecollector.model.Item;
+import com.invisiblecollector.model.ItemField;
 
 public class DebtBuilder extends BuilderBase {
 
@@ -61,35 +57,57 @@ public class DebtBuilder extends BuilderBase {
   }
 
   @Override
-  public JsonObject buildJsonObject() {
-    JsonObject jsonObject = buildSendableJsonObject();
+  public Map<String, Object> buildJsonObject() {
+    Map<String, Object> jsonObject = buildSendableJsonObject();
 
-    jsonObject.addProperty("id", id);
+    jsonObject.put("id", id);
 
     return jsonObject;
   }
 
   @Override
   public Debt buildModel() {
-    return buildModel(Debt.class);
+    Debt debt = new Debt();
+
+    debt.setCustomerId(customerId);
+    debt.setAttributes(attributes);
+    debt.setCurrency(currency);
+    debt.setDate(date);
+    debt.setDueDate(dueDate);
+    debt.setItems(items);
+    debt.setId(id);
+    debt.setGrossTotal(grossTotal);
+    debt.setNetTotal(netTotal);
+    debt.setNumber(number);
+    debt.setStatus(status);
+    debt.setTax(tax);
+    debt.setType(type);
+
+    return debt;
   }
 
   @Override
-  public JsonObject buildSendableJsonObject() {
-    JsonObject jsonObject = new JsonObject();
+  public Map<String, Object> buildSendableJsonObject() {
+    Map<String, Object> jsonObject = new HashMap<>();
 
-    jsonObject.addProperty("number", number);
-    jsonObject.addProperty("customerId", customerId);
-    jsonObject.addProperty("type", type);
-    jsonObject.addProperty("status", status);
-    jsonObject.addProperty("date", StringTestUtils.dateToString(date));
-    jsonObject.addProperty("dueDate", StringTestUtils.dateToString(dueDate));
-    jsonObject.addProperty("netTotal", netTotal);
-    jsonObject.addProperty("tax", tax);
-    jsonObject.addProperty("grossTotal", grossTotal);
-    jsonObject.addProperty("currency", currency);
-    jsonObject.add("attributes", StringTestUtils.toJsonElement(getAttributes()));
-    jsonObject.add("items", StringTestUtils.toJsonElement(getItems()));
+    jsonObject.put("number", number);
+    jsonObject.put("customerId", customerId);
+    jsonObject.put("type", type);
+    jsonObject.put("status", status);
+    jsonObject.put("date", StringTestUtils.dateToString(date));
+    jsonObject.put("dueDate", StringTestUtils.dateToString(dueDate));
+    jsonObject.put("netTotal", netTotal);
+    jsonObject.put("tax", tax);
+    jsonObject.put("grossTotal", grossTotal);
+    jsonObject.put("currency", currency);
+    jsonObject.put("attributes", getAttributes());
+
+    List<Item> items = getItems();
+    List<EnumMap<ItemField, Object>> itemsMaps = items.stream()
+            .map(Item::toEnumMap)
+            .collect(Collectors.toList());
+
+    jsonObject.put("items", itemsMaps);
 
     return jsonObject;
   }

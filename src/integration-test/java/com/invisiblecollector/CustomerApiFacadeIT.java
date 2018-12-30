@@ -45,9 +45,7 @@ public class CustomerApiFacadeIT extends IcFacadeTestBase {
   }
 
   private String assertCustomerAttributesGuts(
-      RequestType requestType,
-      IThrowingBuilder2<Map<String, String>, CustomerApiFacade, String> method)
-      throws Exception {
+      IThrowingBuilder2<Map<String, String>, CustomerApiFacade, String> method) throws Exception {
     MockResponse response = buildBodiedMockResponse(TEST_MAP_JSON);
     CustomerApiFacade facade = initMockServer(response).getCustomerFacade();
     String id = "123";
@@ -110,7 +108,7 @@ public class CustomerApiFacadeIT extends IcFacadeTestBase {
             IcConflictingException.class, () -> icFacade.registerNewCustomer(correctCustomer));
     Assertions.assertEquals(CONFLICT_GID, exception.getGid());
     MatcherAssert.assertThat(
-            exception.getMessage(), CoreMatchers.containsString(JSON_ERROR_MESSAGE));
+        exception.getMessage(), CoreMatchers.containsString(JSON_ERROR_MESSAGE));
   }
 
   @Test
@@ -163,8 +161,7 @@ public class CustomerApiFacadeIT extends IcFacadeTestBase {
   @Test
   public void setCustomerAttributes_success() throws Exception {
     String endpoint =
-        assertCustomerAttributesGuts(
-            RequestType.POST, (facade, id) -> facade.setCustomerAttributes(id, TEST_MAP));
+        assertCustomerAttributesGuts((facade, id) -> facade.setCustomerAttributes(id, TEST_MAP));
     RecordedRequest request = this.mockServer.getRequest();
     this.assertSentCorrectHeaders(
         request, endpoint, this.mockServer.getBaseUri(), RequestType.POST);
@@ -174,8 +171,7 @@ public class CustomerApiFacadeIT extends IcFacadeTestBase {
   @Test
   public void getCustomerAttributes_success() throws Exception {
     String endpoint =
-        assertCustomerAttributesGuts(
-            RequestType.GET, (facade, id) -> facade.requestCustomerAttributes(id));
+        assertCustomerAttributesGuts((facade, id) -> facade.requestCustomerAttributes(id));
     RecordedRequest request = this.mockServer.getRequest();
     this.assertSentCorrectHeaders(request, endpoint, this.mockServer.getBaseUri(), RequestType.GET);
   }

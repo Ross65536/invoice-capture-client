@@ -24,7 +24,7 @@ class CompanyApiFacadeIT extends IcFacadeTestBase {
   private static final String ENABLE_NOTIFICATIONS_ENDPOINT = "companies/enableNotifications";
 
   private Pair<MockResponse, Company> buildCompanyConfiguration(CompanyBuilder companyBuilder) {
-    String companyJson = companyBuilder.buildJsonObject().toString();
+    String companyJson = companyBuilder.buildJson();
     MockResponse mockResponse = buildBodiedMockResponse(companyJson);
     Company correctCompany = companyBuilder.buildModel();
     return Pair.with(mockResponse, correctCompany);
@@ -33,7 +33,7 @@ class CompanyApiFacadeIT extends IcFacadeTestBase {
   private Pair<MockResponse, Company> buildCompanyConfiguration(
       Function<String, MockResponse> mockBuilder) {
     CompanyBuilder companyBuilder = CompanyBuilder.buildTestCompanyBuilder();
-    String companyJson = companyBuilder.buildJsonObject().toString();
+    String companyJson = companyBuilder.buildJson();
     MockResponse mockResponse = mockBuilder.apply(companyJson);
     Company correctCompany = companyBuilder.buildModel();
     return Pair.with(mockResponse, correctCompany);

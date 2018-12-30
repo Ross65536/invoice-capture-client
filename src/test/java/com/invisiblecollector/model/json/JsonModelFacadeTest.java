@@ -42,7 +42,7 @@ public class JsonModelFacadeTest {
     CompanyBuilder companyBuilder = CompanyBuilder.buildTestCompanyBuilder();
     Company correctCompany = companyBuilder.buildModel();
 
-    String jsonString = companyBuilder.buildJsonObject().toString();
+    String jsonString = companyBuilder.buildJson();
 
     InputStream inputStream = stringToInputStream(jsonString);
 
@@ -68,8 +68,8 @@ public class JsonModelFacadeTest {
     Company correctCompany = companyBuilder.buildModel();
     String returnedJson = new JsonModelFacade().toJson((IModel) correctCompany);
 
-    JsonObject returnedJsonObj = JsonTestUtils.jsonStringAsJsonObject(returnedJson);
-    JsonObject correctCompanyJsonObj = companyBuilder.buildJsonObject();
+    String returnedJsonObj = JsonTestUtils.jsonStringAsJsonObject(returnedJson).toString();
+    String correctCompanyJsonObj = companyBuilder.buildJson();
     Assertions.assertEquals(returnedJsonObj, correctCompanyJsonObj);
   }
 
